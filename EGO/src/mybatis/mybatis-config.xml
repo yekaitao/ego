@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	 <mappers><!-- 映射器，告诉 MyBatis到哪里去找映射文件-->
+        <mapper resource="mybatis/CartMapper.xml"/>
+        <mapper resource="mybatis/OrderMapper.xml"/>
+        <mapper resource="mybatis/UserMapper.xml"/>
+        <mapper resource="mybatis/ProductMapper.xml"/>
+        <mapper resource="mybatis/AddToCartMapper.xml"/>
+        <mapper resource="mybatis/BeforeMapper.xml"/>
+        <mapper resource="mybatis/Admin_AspectMapper.xml"/>
+		<mapper resource="mybatis/Admin_FamilyMapper.xml"/>
+		<mapper resource="mybatis/Admin_ProductMapper.xml"/>
+		<mapper resource="mybatis/Admin_ProductCommentMapper.xml"/>
+		
+		<mapper resource="mybatis/Admin_UserMapper.xml"/>
+		<mapper resource="mybatis/Admin_UserAddressMapper.xml"/>
+		<mapper resource="mybatis/Admin_UserShoppingCartMapper.xml"/>
+		<mapper resource="mybatis/Admin_UserOrderMapper.xml"/>
+		<mapper resource="mybatis/Admin_UserOrderDetailMapper.xml"/>
+		<mapper resource="mybatis/lyjUserMapper.xml"/>
+		<mapper resource="mybatis/lyjAddressMapper.xml"/>
+ 	</mappers>
+</configuration>
+

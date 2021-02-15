@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>预生成订单</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/scaffolding.css" rel="stylesheet">
+    <link href="css/jane.css" rel="stylesheet">
+    <link href="css/offcanvas.min.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/foot.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+  <!-- 页头 -->
+  <div class="navbar navbar-default page_header" style="margin: 0;background-color: white;padding-top: 10px;">
+    <div class="container">
+
+      <div class="navbar-header logo">
+        <!-- 头部：LOGO -->
+        <a href="index.html"><img src="pic/index/logo.png" alt=""></a>
+      </div>
+
+      <!-- 右侧链接和文字 -->
+      <span style="display: none;" class="navbar-text  navbar-link navbar-right" id="nickname">&nbsp;&nbsp;<a
+          id="logout" href="#">退出</a></span>
+      <a style="display: none;" id="login" class="navbar-text  navbar-link navbar-right"
+        href="ego_shop_login.html">登录</a>
+      <span class="navbar-text navbar-right">|</span>
+      <a style="display: none;" id="regist" class="navbar-text  navbar-link navbar-right"
+        href="ego_shop_register.html">注册</a>
+      <a style="display: none;" id="personal" class="navbar-text  navbar-link navbar-right"
+        href="ego_shop_personal.html">个人中心</a>
+      <span class="navbar-text navbar-right">|</span>
+      <a class="navbar-text navbar-link navbar-right" href="#" data-target="#myModal2" id="cart1">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+      </a>
+      <span class="navbar-text navbar-right">|</span>
+      <a class="navbar-text navbar-link navbar-right" href="#">
+        <span class="glyphicon glyphicon-heart"></span>
+      </a>
+
+      <!-- 搜索表单 -->
+      <form action="#" class="navbar-form navbar-right md_search_fm">
+        <div class="input-group">
+          <input id="md_keyword" type="text" placeholder="请输入关键词" class="form-control">
+          <span class="input-group-btn">
+            <button id="md_search" type="button" class="btn bg-primary">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!--导航条-->
+  <div class="navbar navbar-inverse navbar-static-top" style="border-radius: 0;padding: 0;margin: 0;">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- 头部：汉堡包按钮 -->
+        <button type="button" class="navbar-toggle pull-left collapsed" data-toggle="offcanvas" data-target="#egoMenu">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- 登录注册下拉菜单 -->
+        <div class="dropdown">
+          <button type="button" class="navbar-toggle pull-right dropdown-toggle" style="color: white;"
+            data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+          </button>
+          <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1"
+            style="background-color: black;height: 160px;text-align: center;">
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="ego_shop_login.html" style="font-size: 13px; color: white;">登录</a>
+            </li>
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="ego_shop_register.html"
+                style="font-size: 13px; color: white;">注册</a>
+            </li>
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="#" style="font-size: 13px; color: white;" data-target="#myModal"
+                id="cart2">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+              </a>
+            </li>
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="#" style="font-size: 13px; color: white;">
+                <span class="glyphicon glyphicon-heart"></span>
+              </a>
+            </li>
+
+
+
+          </ul>
+        </div>
+      </div>
+      <!-- 导航条折叠部分 -->
+      <div class="collapse navbar-collapse sidebar-offcanvas" id="egoMenu">
+        <!-- 折叠部分：左侧的菜单 -->
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="productList.html?aspect=jianshenfuzhuang" id="jianshenfuzhuang">健身服装</a></li>
+          <li><a href="productList.html?aspect=jianshenhuju" id="jianshenhuju">健身护具</a></li>
+          <li><a href="productList.html?aspect=jianshenqicai" id="jianshenqicai">健身器材</a></li>
+          <li><a href="productList.html?aspect=jianshenshipin" id="jianshenshipin">健身食品</a></li>
+          <li><a href="productList.html?aspect=yundongxie" id="yundongxie">运动鞋</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态框（Modal） -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            请登录
+          </h4>
+        </div>
+        <div class="modal-body">
+          您尚未登录！请登录后查看
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+          </button>
+          <a href="ego_shop_login.html">
+            <button type="button" class="btn btn-primary">
+              登录
+            </button>
+          </a>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
+
+
+    <!-- 隐藏信息区 -->
+    <div class="hide">
+        <span id="aid"></span>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <!-- 标题 -->
+                <div class="text-center hidden-sm hidden-xs"
+                    style="margin-bottom: 30px; border-radius: 6px; padding-top: 5px; background-color: #795548;color: white;height: 30px;">
+                    <div class="col-md-8 col-xs-12">商品信息</div>
+                    <div class="col-md-2 col-xs-6">数量</div>
+                    <div class="col-md-2 col-xs-6">单价</div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- 商品 -->
+                <div id="preOrderInfo">
+
+                </div>
+            </div>
+            <!-- 地址、提交按钮 -->
+            <div class="col-md-4 col-xs-12">
+                <!-- 地址 -->
+                <div id="addressInfo">
+                </div>
+
+                <div class="clearfix"></div>
+                <!-- 总价、结算 -->
+                <div style="margin-top: 20px;">
+                    <div style="font-size: xx-large; color: white; padding: 15px;background-color: #795548;">
+                        Total：￥<span id="totalPrice">0.00</span id="totalPrice">
+                    </div>
+                    <a href="#" onclick="getOrderParam()">
+                        <div class="text-center"
+                            style="font-size: xx-large; color: white; padding: 20px;background-color: tomato">
+                            提交订单
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页头 -->
+
+
+    <div class="foot">
+        <div class="container">
+            <div class="row " style="margin-bottom: 20px;">
+                <div class="col-md-4 col-xs-12" style="margin-bottom: 10px;">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-4 center-block"><img class="img-responsive"
+                                style="width: 120px;height: 60px;" src="/pic/index/foot_logo.PNG" alt=""></div>
+                        <div class="col-md-12 col-xs-8 center-block">
+                            <span>手机：18569065625（微信同号）</span><br />
+                            <span>服务热线：400-7070-669</span><br />
+                            <span>地址：华南师范大学南海校区软件学院</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12" style="margin-bottom: 10px;">
+                    <div class="row center-block">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="row center-block"><img class="img-responsive"
+                                    style="width: 100px;height: 100px;" src="/EGO/pic/index/foot1.png" alt=""></div>
+                            <div class="row center-block"><span style="font-size: 15px;color: white;">淘宝登录</span></div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="row center-block"><img class="img-responsive"
+                                    style="width: 100px;height: 100px;" src="/EGO/pic/index/foot2.png" alt=""></div>
+                            <div class="row center-block"><span style="font-size: 15px;color: white;">京东服务号</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12" style="margin-bottom: 10px;">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-6 center-block" style="margin-bottom: 10px;"><span><a
+                                    href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                                    href="#">合作招商</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                                    href="#">隐私政策</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">销售联盟</a></span></div>
+                        <div class="col-md-12 col-xs-6">
+                            <div class="row center-block" style="margin-bottom: 10px;">
+                                <span>服务热线</span><br />
+                                <span style="font-size: 20px;color: white;">400-7070-669</span>
+                            </div>
+                            <div class="row center-block"><button class="btn btn-primary">在线咨询</button><br /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center">XX©2013-2019 XX公司版权所有 粤ICP备08010314号-43 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 轮播广告 -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jane.js"></script>
+    <script src="js/offcanvas.js"></script>
+
+    <script>
+        window.onload = function () {
+            if (window.sessionStorage) {
+                if (sessionStorage.getItem("uid")) {
+                    // 获取登录后的用户信息
+                    $("#nickname").css("display", "")
+                    $("#personal").css("display", "")
+                    var nickname = sessionStorage.getItem("nickname")
+                    var html = nickname + $("#nickname").html()
+                    $("#nickname").html(html)
+
+                    $(".dropdown-menu").css("height", 160)
+                    var html2 = `
+                  <li role="presentation">              
+                    <span id="nickname2" role="menuitem" tabindex="-1" href=""  style="font-size: 13px; color: white;"></ span>            
+                  </li>
+                  <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" style="font-size: 13px; color: white;" data-target="#myModal2" id="cart2">
+                      <span class="glyphicon glyphicon-shopping-cart"></span>
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" style="font-size: 13px; color: white;">
+                      <span class="glyphicon glyphicon-heart"></span>
+                    </a>
+                  </li>
+                  <li role="presentation">              
+                    <a role="menuitem" tabindex="-1" href="ego_shop_personal.html" style="font-size: 13px; color: white;">个人中心</ a>            
+                  </li>
+                  <li role="presentation">              
+                    <a role="menuitem" tabindex="-1" href="ego_shop_address.html"  style="font-size: 13px; color: white;">地址管理</ a>            
+                  </li>
+                  <li role="presentation">              
+                    <a id="logout2" role="menuitem" tabindex="-1" href="#"  style="font-size: 13px; color: white;">退出</a>            
+                  </li>
+                  `
+                    $(".dropdown-menu").html(html2)
+                    $("#nickname2").html(nickname)
+                }
+                else {
+                    $("#login").css("display", "")
+                    $("#regist").css("display", "")
+                }
+            }
+            else
+                alert("该浏览器不支持localStorage")
+
+            $("#md_search").click(function () {
+                var keyword = $("#md_keyword").val()
+                $("#md_keyword").val("")
+                location.href = "/search.html?keyword=" + keyword
+            })
+
+            $("#cart1,#cart2").click(function () {
+                if (sessionStorage.getItem("uid")) {
+                    // 获取登录后的用户信息
+                    location.href = "/cart.html"
+                }
+                else {
+                    $("#myModal2").modal('show')
+                }
+            })
+
+            //  加
+            $("#logout,#logout2").click(function () {
+                sessionStorage.removeItem("uid")
+                sessionStorage.removeItem("nickname")
+                alert("退出成功！")
+                location.href = "index.html"
+            })
+
+            getPreOrder()
+        }
+        
+        /******************************************** */
+        /*****************购物车页面****************** */
+        /******************************************** */
+        // ajax查询购物车信息
+        function getCartInfo(){
+            //异步提交用户的输入给后台API,获取购物车所有信息
+        	uid=1
+        	if(window.sessionStorage.getItem("uid")!=null){
+        		uid=window.sessionStorage.getItem("uid")
+        	}
+            $.ajax({
+                method:'POST',
+                url:'http://localhost:8080/EGO/cart/item/list',
+                data:JSON.stringify({
+                	uid:uid,
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                	console.log(data)
+                    if(data.code==200){
+                        let items = data.data
+                        str = ''
+                        for(var i=0;i<items.length;i++){
+                            // 添加隐藏pid
+                            str = str+`<span class="hide" name="pid">${items[i].pid}</span>`
+                            // 选择框
+                            str = str+`<div name="cartItem" class="wow bounceInUp text-center" style="border-radius: 10px; background-color: white; overflow: hidden; margin-bottom: 10px;padding: 15px;">
+                            <div class="col-md-1 col-xs-2">
+                            <input type="checkbox" name="selector" onclick="selectNum()"></div>`
+                            // 图片
+                            str = str+`<div class="col-md-7 col-xs-10">
+                            <div class="col-md-3 col-xs-5">
+                                <img class="img-responsive" src=".${items[i].product_pic.split(',')[0]}">
+                            </div>`
+                            // 标题和属性
+                            str = str+`<div class="col-md-9 col-xs-7">
+                            <div class="text-clamp text-left">
+                                <b>${items[i].title}</b>
+                            </div>
+                            <div class="text-muted text-left" style="padding: 5px;">${items[i].property}</div>
+                                </div>
+                            </div>`
+                            // 数量、价格、删除
+                            str = str+`<div class="col-md-1 col-xs-4" style="padding-top: 20px;">
+                            <input min="1" type="number" name="count" value="${items[i].count}" style="width: 100%; text-align: center;border-radius: 5px;" oninput="updateTotal()">
+                            </div>
+                            <div class="col-md-2 col-xs-4" style="padding: 20px;">￥<span name="price">${items[i].price}</span></div>
+                            <div class="col-md-1 col-xs-4" style="padding: 20px;">
+                                <a href="#" onclick="preDelete(${i},${items[i].cid},${items[i].uid})"><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>`
+                            str = str+`</div>
+                            <div class="clearfix"></div>`
+                        }
+                        $('#cartInfo').html(str)
+                    }
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        //监听选择框
+        function selectAll(){
+            let selectors = document.getElementsByName('selector')
+
+            if(selectors[0].checked==true){
+                for(var i=1;i<selectors.length;i++){
+                    selectors[i].checked=true
+                }
+                $('#selectNum').html(selectors.length-1)
+            }
+            else{
+                for(var i=1;i<selectors.length;i++){
+                    selectors[i].checked=false
+                }
+                $('#selectNum').html(0)
+            }
+            
+            updateTotal()
+        }
+        function selectNum(){
+            let selectors = document.getElementsByName('selector')
+            let select = 0
+            //是否全选
+            for(var i=1;i<selectors.length;i++){
+                if(selectors[i].checked==true){
+                    select++
+                }
+            }
+            //全选，所有都打勾
+            if(select==selectors.length-1){
+                selectors[0].checked=true
+            }
+            else{
+                selectors[0].checked=false
+            }
+            $('#selectNum').html(select)
+            updateTotal()
+        }
+        //更新总价格
+        function updateTotal(){
+            let selectors = document.getElementsByName('selector')
+            let counts = document.getElementsByName('count')
+            let prices = document.getElementsByName('price')
+            let total = 0;
+
+            for(var i=1;i<selectors.length;i++){
+                if(selectors[i].checked==true){
+                    total=total-(-(counts[i-1].value*prices[i-1].innerText))
+                }
+            }
+            total=total.toFixed(2)
+            $('#totalPrice').html(total)
+        }
+        // 数据预处理
+        function preDelete(id,cid,uid){
+            //设置id，cid，uid
+            $('#id').html(id)
+            $('#cid').html(cid)
+            $('#uid').html(uid)
+
+            $('#myModal').modal('show')
+        }
+        // ajax请求删除数据
+        function deleteCart(){
+            //从一个地方获取id，cid，uid
+            var id = $('#id').text()
+            var cid = $('#cid').text()
+            var uid = $('#uid').text()
+            let items = document.getElementsByName('cartItem')
+            let pids = document.getElementsByName('pid')
+            console.log(id,cid,uid,items,pids[id].innerText)
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/cart/item/delete',
+                data:JSON.stringify({
+                	pid:pids[id].innerText,
+                	uid:uid
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                    if(data.code==200){
+                        console.log(data.msg)
+                        $(items[id]).animate({marginLeft:"300px"},300).fadeOut("fast")
+                        
+                        //假装更新了价格
+                        document.getElementsByName('price')[id].innerText=0
+                        updateTotal()
+                    }
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+            
+        }
+        // 获取必要参数，跳转页面
+        function getPreOrderParam(){
+            console.log('跳转')
+            let selectors = document.getElementsByName('selector')
+            let pids = document.getElementsByName('pid')
+            let counts = document.getElementsByName('count')
+            var pid = ""
+            var count = ""
+            //0为全选框
+            console.log(selectors,pids,counts)
+            for(var i=1;i<selectors.length;i++){
+                if(selectors[i].checked==true&&document.getElementsByName('price')[i-1].innerText!=0){
+                    pid=pid+pids[i-1].innerText+','
+                    count=count+counts[i-1].value+','
+                }
+            }
+            pid = pid.substr(0,pid.length-1)
+            count = count.substr(0,count.length-1)
+            // console.log(pid,count)
+            window.location = './pre_order.html?pids='+pid+'&counts='+count 
+        }
+        /******************************************** */
+        /******************************************** */
+        /******************************************** */
+        // 显示地址和订单内容
+        function getPreOrder(){
+            //uid & pids & counts
+            params = window.location.search.split('&')
+            pids = params[0].split('=')[1]
+            counts = params[1].split('=')[1]
+            count = counts.split(',')
+            
+            uid=1
+        	if(window.sessionStorage.getItem("uid")!=null){
+        		uid=window.sessionStorage.getItem("uid")
+        	}
+            //要删除购物车中的信息
+            //获取地址信息
+            $.ajax({
+                method:'POST',
+                url:'http://localhost:8080/EGO/user/address/all',
+                data:JSON.stringify({
+                	uid:uid,
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                	console.log(data)
+                    if(data.code==200){
+                        items = data.data
+                        str=''
+                        addressCss=['','choose']
+                        for(var i=0;i<items.length;i++){
+                            if(items[i].is_default==1){
+                                $('#aid').html(items[i].aid)
+                            }
+                            str=str+`<div class="nochoose ${addressCss[items[i].is_default]} col-xs-12" name="address">
+                            <a href="#" onclick="chooseAddress(this,${items[i].aid})">
+                            <div class="col-xs-3" style="padding: 5px;"><b>${items[i].receiver}</b></div>
+                            <div class="col-xs-9" style="padding: 5px;">${items[i].phone}</div>
+                            <div class="col-xs-3" style="padding: 5px;">${items[i].province}</div>
+                            <div class="col-xs-3" style="padding: 5px;">${items[i].city}</div>
+                            <div class="col-xs-3" style="padding: 5px;">${items[i].county}</div>
+                            <div class="col-xs-12" style="padding: 5px;">${items[i].address}</div>
+                            </a>
+                            </div>`
+                        }
+                        str=str+`<div class="col-xs-1"></div>
+                        <a href="ego_shop_address.html"><div class="text-center col-xs-10" style="background-color: tomato; color: white; padding: 5px; margin-top:15px; border-radius: 10px; font-size: large;">添加新地址</div></a>`
+                        
+                        $('#addressInfo').html(str)
+                    }
+                    
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+            //获取商品信息
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/order/item/prepare',
+                data:JSON.stringify({
+                	uid:uid,
+                	pids:pids
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                	console.log(data)
+                    if(data.code==200){
+                        items = data.data
+                        
+                        str=''
+                        var total=0
+                        for(var i=0;i<items.length;i++){
+                            total = total+items[i].price*count[i]
+                            // 添加隐藏pid
+                            str = str+`<span class="hide" name="pid">${items[i].pid}</span>`
+                            str = str+`<div name="cartItem" class="wow bounceInUp text-center" style="border-radius: 10px; background-color: white; overflow: hidden; margin-bottom: 10px;padding: 15px;">`
+                            // 图片
+                            str = str+`<div class="col-md-8 col-xs-10">
+                            <div class="col-md-3 col-xs-5">
+                                <img class="img-responsive" src=".${items[i].product_pic.split(',')[0]}">
+                            </div>`
+                            // 标题和属性
+                            str = str+`<div class="col-md-9 col-xs-7">
+                            <div class="text-clamp text-left">
+                                <b>${items[i].title}</b>
+                            </div>
+                            <div class="text-muted text-left" style="padding: 5px;">${items[i].property}</div>
+                                </div>
+                            </div>`
+                            // 数量、价格
+                            str = str+`<div class="col-md-2 col-xs-6" style="padding-top: 20px;"><span class="hidden-md">x</span><span name="count">${count[i]}</span></div>
+                            <div class="col-md-2 col-xs-6" style="padding: 20px;">￥<span name="price">${items[i].price}</span></div>`
+                            str = str+`</div>
+                            <div class="clearfix"></div>`
+                        }
+                        total = total.toFixed(2)
+
+                        $('#preOrderInfo').html(str)
+                        $('#totalPrice').html(total)
+                    }
+                    
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        // 切换地址时样式改变
+        function chooseAddress(obj,aid){
+            let adds = document.getElementsByName('address')
+            for(var i=0;i<adds.length;i++){
+                $(adds[i]).removeClass('choose')
+            }
+            // console.log(obj.parentNode)
+            $(obj.parentNode).addClass('choose')
+            $('#aid').html(aid)
+        }
+        // 获取生成订单的要素，通过ajax创建新订单，跳转页面
+        function getOrderParam(){
+            console.log(window.location)
+            //获取uid，aid
+            var aid = $('#aid').text()
+            uid=1
+        	if(window.sessionStorage.getItem("uid")!=null){
+        		uid=window.sessionStorage.getItem("uid")
+        	}
+            //获取pids
+            let pid = document.getElementsByName('pid')
+            let pids = ""
+            for(var i=0;i<pid.length;i++){
+                pids=pids+pid[i].innerText+','
+            }
+            pids = pids.substr(0,pids.length-1)
+            //获取counts
+            let count = document.getElementsByName('count')
+            let counts = ""
+            for(var i=0;i<count.length;i++){
+                counts=counts+count[i].innerText+','
+            }
+            counts = counts.substr(0,counts.length-1)
+            console.log(aid,pids,counts,uid)
+            //创建订单
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/order/item/create',
+                data:JSON.stringify({
+                	uid:uid,
+                	aid:aid,
+                	pids:pids,
+                	counts:counts
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                	window.location.href = 'order.html';
+                	console.log(data)
+                    if(data.code==200){
+                        // 删除购物车对应信息
+                        pp=pids.split(',')
+                        for(var p=0;p<pp.length;p++){
+                            $.ajax({
+                            	method:'POST',
+                                url:'http://localhost:8080/EGO/cart/item/delete',
+                                data:JSON.stringify({
+                                	pid:pp[p],
+                                	uid:uid
+                                }),
+                                contentType:"application/json;charset=utf-8",
+                                dataType:"json",
+                                success:function(data,msg,xhr){
+                                	
+                                    if(data.code==200){
+                                        console.log(data.msg)
+                                    }
+                                },
+                                error:function(xhr,err){
+                                    console.log("fail")
+                                }
+                            })
+                        }
+                        //跳转到订单页面
+                     	
+                    }
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        /******************************************** */
+        /******************************************** */
+        /******************************************** */
+        // 载入时启用
+        function getOrder(){
+            //
+            params = window.location.search
+            uid = 1
+        	if(window.sessionStorage.getItem("uid")!=null){
+        		uid=window.sessionStorage.getItem("uid")
+        	}
+            $.ajax({
+                method:'POST',
+                url:'http://localhost:8080/EGO/order/item/list',
+                data:JSON.stringify({
+                	uid:uid,
+                	status:-1
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                	console.log(data)
+                    if(data.code==200){
+                        items = data.data
+                        console.log(data.data)
+                        str=''
+                        let status = new Array("立即付款","催ta发货","确认收货","已完成")
+                        for(var i=0;i<items.length;i++){
+                            first_img = '.'+items[i].product_pic.split(',')[0]
+                            // console.log(first_img)
+                            if(i==0){
+                                str=str+`<div class="panel panel-info"><div class="panel-heading"><div class="col-xs-3 hidden-xs">订单编号:${items[i].oid}</div><div class="col-xs-3 hidden-xs">下单时间:`+timestampToTime(items[i].order_time)+`</div><div class="col-sm-3 col-xs-4"><a href="#" onclick="getDetailParam(${items[i].oid})">订单详情</a></div><div class="text-right"><button class="btn btn-danger" onclick="operate(${items[i].oid},${items[i].status})">${status[items[i].status]}</button><button class="btn btn-default" onclick="deleteOrder(${items[i].oid},this)"><span class="glyphicon glyphicon-trash"></span></button></div></div>`
+                            }
+                            else if(items[i].oid!=items[i-1].oid){
+                                str=str+`</div><div class="panel panel-info"><div class="panel-heading"><div class="col-xs-3 hidden-xs">订单编号:${items[i].oid}</div><div class="col-xs-3 hidden-xs">下单时间:`+timestampToTime(items[i].order_time)+`</div><div class="col-sm-3 col-xs-4"><a href="#" onclick="getDetailParam(${items[i].oid})">订单详情</a></div><div class="text-right"><button class="btn btn-danger" onclick="operate(${items[i].oid},${items[i].status})">${status[items[i].status]}</button><button class="btn btn-default" onclick="deleteOrder(${items[i].oid},this)"><span class="glyphicon glyphicon-trash"></span></button></div></div>`
+                            }
+                            str=str+'<div class="panel-body">'
+                            //图片
+                            str=str+`<div class="col-md-2 col-sm-3 col-xs-3"><img class="img-responsive" src="${first_img}"></div>`
+                            //标题和属性
+                            str=str+`<div class="col-md-5 col-sm-6 col-xs-6"><div class="text-clamp"><b>${items[i].title}</b></div><div class="text-clamp text-muted">${items[i].property}</div class="text-clamp"></div>`
+                            //价格
+                            str=str+`<div class="col-md-2 col-sm-2 col-xs-3">￥${items[i].price}</div>`
+                            //数量
+                            str=str+`<div class="col-md-2 col-sm-1 col-xs-3">&nbsp;x${items[i].count}</div>`
+                            str=str+'</div>'
+                            if(i!=items.length-1&&items[i].oid==items[i+1].oid){
+                                str=str+'<hr>'
+                            }
+                        }
+                        $('#myOrder').html(str)
+                    }
+                    
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        // 查看特定类型订单
+        function changeStatus(obj){
+            $('.list-group-item').removeClass('active')
+            
+            obj.classList.add('active')
+            status=-1
+            if(obj.innerText=="待付款"){
+                status=0
+            }
+            else if(obj.innerText=="待发货"){
+                status=1
+            }
+            else if(obj.innerText=="待收货"){
+                status=2
+            }
+            uid = 1
+        	if(window.sessionStorage.getItem("uid")!=null){
+        		uid=window.sessionStorage.getItem("uid")
+        	}
+//            param=`uid=${uid}`
+//            if(status!=-1){
+//                param=param+`&status=${status}`
+//            }
+//            console.log(param)
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/order/item/list',
+                data:JSON.stringify({
+                	uid:uid,
+                	status:status
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                	console.log(data)
+                    if(data.code==200){
+                        items = data.data
+                        console.log(data.data)
+                        str=''
+                        let status = new Array("立即付款","催ta发货","确认收货","已完成")
+                        for(var i=0;i<items.length;i++){
+                            first_img = '.'+items[i].product_pic.split(',')[0]
+                            // console.log(first_img)
+                            if(i==0){
+                                str=str+`<div class="panel panel-info"><div class="panel-heading"><div class="col-xs-3 hidden-xs">订单编号:${items[i].oid}</div><div class="col-xs-3 hidden-xs">下单时间:`+timestampToTime(items[i].order_time)+`</div><div class="col-sm-3 col-xs-4"><a href="#" onclick="getDetailParam(${items[i].oid})">订单详情</a></div><div class="text-right"><button class="btn btn-danger" onclick="operate(${items[i].oid},${items[i].status})">${status[items[i].status]}</button><button class="btn btn-default" onclick="deleteOrder(${items[i].oid},this)"><span class="glyphicon glyphicon-trash"></span></button></div></div>`
+                            }
+                            else if(items[i].oid!=items[i-1].oid){
+                                str=str+`</div><div class="panel panel-info"><div class="panel-heading"><div class="col-xs-3 hidden-xs">订单编号:${items[i].oid}</div><div class="col-xs-3 hidden-xs">下单时间:`+timestampToTime(items[i].order_time)+`</div><div class="col-sm-3 col-xs-4"><a href="#" onclick="getDetailParam(${items[i].oid})">订单详情</a></div><div class="text-right"><button class="btn btn-danger" onclick="operate(${items[i].oid},${items[i].status})">${status[items[i].status]}</button><button class="btn btn-default" onclick="deleteOrder(${items[i].oid},this)"><span class="glyphicon glyphicon-trash"></span></button></div></div>`
+                            }
+                            str=str+'<div class="panel-body">'
+                            //图片
+                            str=str+`<div class="col-md-2 col-sm-3 col-xs-3"><img class="img-responsive" src="${first_img}"></div>`
+                            //标题和属性
+                            str=str+`<div class="col-md-5 col-sm-6 col-xs-6"><div class="text-clamp"><b>${items[i].title}</b></div><div class="text-clamp text-muted">${items[i].property}</div class="text-clamp"></div>`
+                            //价格
+                            str=str+`<div class="col-md-2 col-sm-2 col-xs-3">￥${items[i].price}</div>`
+                            //数量
+                            str=str+`<div class="col-md-2 col-sm-1 col-xs-3">&nbsp;x${items[i].count}</div>`
+                            str=str+'</div>'
+                        }
+                        $('#myOrder').html(str)
+                    }
+                    
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        // 更改订单状态
+        function operate(oid,status){
+            console.log(oid,status)
+            if(status==3){
+                alert('订单已完成')
+                return
+            }
+            //根据当前状态，向上加一级
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/order/item/update',
+                data:JSON.stringify({
+                	oid:oid,
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                    if(data.code==200){
+                        items = data.data
+                        console.log(data.data)
+                        alert('操作成功')
+                        window.location.reload()
+                    } 
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        // 删除订单
+        function deleteOrder(oid,obj){
+            console.log(oid,obj.parentNode.parentNode.parentNode)
+
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/order/item/delete',
+                data:JSON.stringify({
+                	oid:oid,
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                    if(data.code==200){
+                        items = data.data
+                        console.log(data.msg)
+                        let item = obj.parentNode.parentNode.parentNode
+                        $(item).animate({marginLeft:"300px"},300).fadeOut("fast")
+                    }  
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+        // 获取详情页参数，跳转
+        function getDetailParam(oid){
+            // console.log(obj)
+            window.location = './order_detail.html?oid='+oid
+        }
+        /******************************************** */
+        /******************************************** */
+        /******************************************** */
+        function showDetail(){
+            params = window.location.search
+            oid = params.split('=')[1]
+            
+            $.ajax({
+            	method:'POST',
+                url:'http://localhost:8080/EGO/order/item/detail',
+                data:JSON.stringify({
+                	oid:oid,
+                }),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function(data,msg,xhr){
+                    if(data.code==200){
+                        items = data.data
+                        console.log(data.data)
+                        address=''
+                        str=''
+                        str3=['待付款','待发货','待收货','已完成']
+                        bar=[25,50,75,100]
+                        var total=0
+                        for(var i=0;i<items.length;i++){
+                            if(i==0){
+                                address=address+`<div class="col-xs-12" name="address">
+                                <a href="#" onclick="chooseAddress(this,${items[i].aid})">
+                                <div class="col-xs-3" style="padding: 5px;"><b>${items[i].receiver}</b></div>
+                                <div class="col-xs-9" style="padding: 5px;">${items[i].phone}</div>
+                                <div class="col-xs-3" style="padding: 5px;">${items[i].province}</div>
+                                <div class="col-xs-3" style="padding: 5px;">${items[i].city}</div>
+                                <div class="col-xs-3" style="padding: 5px;">${items[i].county}</div>
+                                <div class="col-xs-12" style="padding: 5px;">${items[i].address}</div>
+                                </a>
+                                </div>`
+                            }
+                            
+                            // 商品详情
+                            total = total+items[i].price*items[i].count
+                            // 添加隐藏pid
+                            str = str+`<span class="hide" name="pid">${items[i].pid}</span>`
+                            str = str+`<div name="cartItem" class="wow bounceInUp text-center" style="border-radius: 10px; background-color: white; overflow: hidden; margin-bottom: 10px;padding: 15px;">`
+                            // 图片
+                            str = str+`<div class="col-md-8 col-xs-10">
+                            <div class="col-md-3 col-xs-5">
+                                <img class="img-responsive" src=".${items[i].product_pic.split(',')[0]}">
+                            </div>`
+                            // 标题和属性
+                            str = str+`<div class="col-md-9 col-xs-7">
+                            <div class="text-clamp text-left">
+                                <b>${items[i].title}</b>
+                            </div>
+                            <div class="text-muted text-left" style="padding: 5px;">${items[i].property}</div>
+                                </div>
+                            </div>`
+                            // 数量、价格
+                            str = str+`<div class="col-md-2 col-xs-6" style="padding-top: 20px;"><span class="hidden-md">x</span><span name="count">${items[i].count}</span></div>
+                            <div class="col-md-2 col-xs-6" style="padding: 20px;">￥<span name="price">${items[i].price}</span></div>`
+                            str = str+`</div>
+                            <div class="clearfix"></div>`
+                        }
+                        total = total.toFixed(2)
+                        $('.address').html(address)
+                        $('.orderDetail').html(str)
+                        
+                        $('#totalPrice').html(total)
+                        $('#orderId').html(oid)
+                        let progress=`<div class="progress-bar progress-bar-success" role="progressbar"aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"style="width: ${bar[items[0].status]}%;"><span>${str3[items[0].status]}</span></div>`
+                        $('#progressBar').html(progress)
+                    }
+                    
+                },
+                error:function(xhr,err){
+                    console.log("fail")
+                }
+            })
+        }
+
+        function timestampToTime(timestamp) {
+            var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var D = date.getDate() + ' ';
+            var h = date.getHours() + ':';
+            var m = date.getMinutes() + ':';
+            var s = date.getSeconds();
+            return Y+M+D;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
